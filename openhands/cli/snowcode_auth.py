@@ -179,7 +179,7 @@ class SnowcodeAuth:
             if (
                 not settings
                 or not settings.llm_model
-                or settings.llm_model != 'hosted_vllm/DeepSeek-Coder-V2-Lite-Instruct'
+                or settings.llm_model != 'hosted_vllm/Qwen3-Coder-30B-A3B-Instruct'
             ):
 
                 return await self.setup_default_snowcode_config()
@@ -224,7 +224,7 @@ class SnowcodeAuth:
                 settings = Settings()
 
             # Set Snowcode default configuration
-            settings.llm_model = 'hosted_vllm/DeepSeek-Coder-V2-Lite-Instruct'
+            settings.llm_model = 'hosted_vllm/Qwen3-Coder-30B-A3B-Instruct'
             settings.llm_base_url = 'http://inference.dev.snowcell.io/v1'
             settings.llm_api_key = SecretStr(user_token)
             settings.agent = 'CodeActAgent'
@@ -251,7 +251,7 @@ class SnowcodeAuth:
             return {}
 
         return {
-            'model': 'hosted_vllm/DeepSeek-Coder-V2-Lite-Instruct',
+            'model': 'hosted_vllm/Qwen3-Coder-30B-A3B-Instruct',
             'base_url': 'http://inference.dev.snowcell.io/v1',
             'api_key': auth_data['token'],
             'agent': 'CodeActAgent',
