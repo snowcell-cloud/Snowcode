@@ -8,7 +8,7 @@ SNOWCODE_CURRENT_MODEL_URL = os.getenv(
 )
 
 DEFAULT_LLM_MODEL = "hosted_vllm/Qwen3-Coder-30B-A3B-Instruct"
-DEFAULT_BASE_URL = "http://inference.snowcell.io/v1"
+DEFAULT_BASE_URL = "http://inference.dev.snowcell.io/v1"
 DEFAULT_PROVIDER = "hosted_vllm"
 
 
