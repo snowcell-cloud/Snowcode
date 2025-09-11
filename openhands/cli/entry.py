@@ -1,7 +1,23 @@
 """Main entry point for Snowcode CLI with subcommand support and authentication."""
+import os
+import sys
+import warnings
+import logging
+# these settings must be applied before importing any other modules
+if not getattr(sys, "_snow_warnings_suppressed", False):
+    warnings.resetwarnings()
+    warnings.simplefilter("ignore", category=Warning, append=False)  # nuke all warnings in CLI
+    os.environ.setdefault("PYTHONWARNINGS", "ignore")
+    logging.captureWarnings(True)
+    pyw = logging.getLogger("py.warnings")
+    pyw.propagate = False
+    if not pyw.handlers:
+        pyw.addHandler(logging.NullHandler())
+    sys._snow_warnings_suppressed = True
+# -------------------------------------------------
+
 
 import asyncio
-import sys
 
 import openhands
 import openhands.cli.suppress_warnings  # noqa: F401

@@ -6,7 +6,7 @@ requires = [
 
 [tool.poetry]
 name = "snowcode"
-version = "0.1.1rc2"
+version = "0.1.1rc3"
 description = "Snowcode: Code Less, Build Better"
 authors = [ "snowcode" ]
 license = "MIT"
