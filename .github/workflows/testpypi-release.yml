@@ -1,0 +1,44 @@
+# Publishes the Snowcode package to **TestPyPI**
+name: Publish TestPyPI Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual trigger'
+        required: true
+        default: ''
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.12
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.4.1
+        with:
+          virtualenvs-in-project: true
+          virtualenvs-path: ~/.virtualenvs
+      - name: Install Poetry Dependencies
+        run: poetry install --no-interaction --no-root
+      - name: Build poetry project
+        run: ./build.sh
+
+      - name: Smoke test wheel (import + CLI)
+        run: |
+          python -m venv .venv-test
+          . .venv-test/bin/activate
+          python -m pip install dist/*.whl
+          python -c "import openhands; print('import ok')"
+          snow --help >/dev/null || (echo 'snow CLI failed' && exit 1)
+
+      - name: Configure TestPyPI repository
+        run: poetry config repositories.testpypi https://test.pypi.org/legacy/
+
+      - name: Publish to TestPyPI
+        env:
+          TEST_PYPI_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
+        run: poetry publish -r testpypi -u __token__ -p "$TEST_PYPI_TOKEN"
