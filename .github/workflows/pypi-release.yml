@@ -1,21 +1,25 @@
 # Publishes the Snowcode PyPi package
+ 
 name: Publish PyPi Package
+ 
 
 # Triggered manually
 on:
   workflow_dispatch:
     inputs:
       reason:
-        description: 'Reason for manual trigger'
+        description: "Reason for manual trigger"
         required: true
-        default: ''
+        default: ""
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+ 
       - uses: actions/setup-python@v6
+ 
         with:
           python-version: 3.12
       - name: Install Poetry

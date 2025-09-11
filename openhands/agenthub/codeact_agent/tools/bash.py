@@ -76,7 +76,7 @@ def create_cmd_run_tool(
                         'enum': RISK_LEVELS,
                     },
                 },
-                'required': ['command'],
+                'required': ['command', 'security_risk'],
             },
         ),
     )
