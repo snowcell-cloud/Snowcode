@@ -88,6 +88,19 @@ from openhands.storage.settings.file_settings_store import FileSettingsStore
 from openhands.utils.utils import create_registry_and_conversation_stats
 
 
+# Patch logger to suppress WARNING and DEPRECATED messages in CLI
+class SuppressWarningsFilter(logging.Filter):
+    def filter(self, record):
+        msg = record.getMessage()
+        # Suppress WARNING and DEPRECATED messages
+        if record.levelno == logging.WARNING or 'DEPRECATED' in msg:
+            return False
+        return True
+
+
+logger.addFilter(SuppressWarningsFilter())
+
+
 async def cleanup_session(
     loop: asyncio.AbstractEventLoop,
     agent: Agent,
