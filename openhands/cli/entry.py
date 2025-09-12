@@ -30,7 +30,7 @@ def get_snow_cli_parser():
         '  --status       - Check authentication status\n'
         # '  --chat         - Start chat session (requires authentication)\n'
         '  --logout       - Logout from Snowcode\n\n'
-        'Original OpenHands commands are also supported:\n'
+        'Original Snowcode commands are also supported:\n'
         '  serve - Launch the Snowcode GUI server (web interface)\n'
         '  cli   - Run Snowcode in CLI mode (terminal interface)\n\n'
         'Running "snow" without a command is the same as "snow cli" (if authenticated)'

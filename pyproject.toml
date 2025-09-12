@@ -6,21 +6,33 @@ requires = [
 
 [tool.poetry]
 name = "snowcode"
-version = "0.55.0"
-description = "snowcode: Code Less, Make More"
+version = "0.1.1rc1"
+description = "Snowcode: Code Less, Build Better"
 authors = [ "snowcode" ]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/All-Hands-AI/OpenHands"
+repository = "https://github.com/snowcell-cloud/Snowcode"
+# packages = [
+#   { include = "openhands/**/*" },
+#   { include = "third_party/**/*" },
+#   { include = "pyproject.toml", to = "openhands" },
+#   { include = "poetry.lock", to = "openhands" },
+# ]
+# include = [
+#   "openhands/integrations/vscode/openhands-vscode-0.0.1.vsix",
+#   "microagents/**/*",
+# ]
 packages = [
-  { include = "openhands/**/*" },
-  { include = "third_party/**/*" },
-  { include = "pyproject.toml", to = "openhands" },
-  { include = "poetry.lock", to = "openhands" },
+  { include = "openhands" },
+  { include = "third_party" },
+  # if you add a shim package later: { include = "snowcode" },
 ]
+
+# Keep extra files. IMPORTANT: put non-code assets under a package dir.
 include = [
   "openhands/integrations/vscode/openhands-vscode-0.0.1.vsix",
-  "microagents/**/*",
+  # If microagents is top-level, move it to openhands/microagents/ first:
+  "openhands/microagents/**",
 ]
 build = "build_vscode.py" # Build VSCode extension during Poetry build
 
