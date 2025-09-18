@@ -58,13 +58,27 @@ class SnowcodeAuth:
             if not self.validate_token_with_api(token):
                 return False
 
+            # Request the actual key from the billing endpoint
+            key_url = "https://api.snowcell.io/billing/v1/snowcode/litellm/key"
+            headers = {'x-api-token': token, 'Content-Type': 'application/json'}
+            response = requests.get(key_url, headers=headers, timeout=10)
+
+            if response.status_code == 200:
+                data = response.json()
+                # Assume the key is under 'api_key' in the response
+                litellm_key = data.get('api_key')
+                if not litellm_key:
+                    return False
+            else:
+                return False
+
             # Ensure the directory exists
             self.auth_file_path.parent.mkdir(parents=True, exist_ok=True)
 
             # Create auth data with timestamp and actual token
             auth_data = {
-                'token': token,
-                'token_hash': hashlib.sha256(token.encode()).hexdigest(),
+                'token': litellm_key,
+                'token_hash': hashlib.sha256(litellm_key.encode()).hexdigest(),
                 'timestamp': time.time(),
                 'status': 'active',
             }
