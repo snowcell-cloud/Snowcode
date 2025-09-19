@@ -8,11 +8,11 @@ SNOWCODE_CURRENT_MODEL_URL = os.getenv(
 )
 
 
-DEFAULT_LLM_MODEL = "hosted_vllm/Qwen3-Coder-30B-A3B-Instruct"
-DEFAULT_BASE_URL = "http://inference.snowcell.io/v1"
+# DEFAULT_LLM_MODEL = "hosted_vllm/Qwen3-Next-80B-A3B-Instruct-AWQ-4bit"
+# DEFAULT_BASE_URL = "https://qwen3-next-80b-a3b-awq-predictor.model-serving.snowcell.app/v1"
 
-# DEFAULT_LLM_MODEL = "hosted_vllm/Meta-Llama-3.1-70B-Instruct"
-# DEFAULT_BASE_URL = "http://inference.snowcell.io/v1"
+DEFAULT_LLM_MODEL = "hosted_vllm/Qwen3-Next-80B-A3B-Instruct-AWQ-4bit"
+DEFAULT_BASE_URL = "http://inference.snowcell.io/v1"
 
 DEFAULT_PROVIDER = "hosted_vllm"
 
