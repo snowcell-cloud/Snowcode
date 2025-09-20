@@ -77,8 +77,10 @@ class SnowcodeAuth:
 
             # Create auth data with timestamp and actual token
             auth_data = {
-                'token': litellm_key,
-                'token_hash': hashlib.sha256(litellm_key.encode()).hexdigest(),
+                'token': token,
+                'api_key': litellm_key,
+                'token_hash': hashlib.sha256(token.encode()).hexdigest(),
+                'api_key_hash': hashlib.sha256(litellm_key.encode()).hexdigest(),
                 'timestamp': time.time(),
                 'status': 'active',
             }
@@ -216,10 +218,10 @@ class SnowcodeAuth:
             from pydantic import SecretStr
 
             auth_data = self.load_token()
-            if not auth_data or not auth_data.get('token'):
+            if not auth_data or not auth_data.get('api_key'):
                 return False
 
-            user_token = auth_data['token']
+            litellm_api_key = auth_data['api_key']
 
             llm_model, llm_base_url = get_llm_config()
 
@@ -232,7 +234,7 @@ class SnowcodeAuth:
 
             settings.llm_model = llm_model
             settings.llm_base_url = llm_base_url
-            settings.llm_api_key = SecretStr(user_token)
+            settings.llm_api_key = SecretStr(litellm_api_key)
             settings.agent = 'CodeActAgent'
             settings.confirmation_mode = True
             settings.enable_default_condenser = True
@@ -260,7 +262,7 @@ class SnowcodeAuth:
         return {
             'model': llm_model,
             'base_url': llm_base_url,
-            'api_key': auth_data['token'],
+            'api_key': auth_data['api_key'],
             'agent': 'CodeActAgent',
             'confirmation_mode': True,
             'memory_condensation': True,
